@@ -10,8 +10,12 @@ end
 
 namespace :load do
   task :defaults do
-    set :bundle_bins, fetch(:bundle_bins, []).push('hanami').uniq
-    set :rvm_map_bins, fetch(:rvm_map_bins, []).push('hanami').uniq
-    set :rbenv_map_bins, fetch(:rbenv_map_bins, []).push('hanami').uniq
+    # Chruby, Rbenv and RVM integration
+    append :chruby_map_bins, 'hanami'
+    append :rbenv_map_bins, 'hanami'
+    append :rvm_map_bins, 'hanami'
+
+    # Bundler integration
+    append :bundle_bins, 'hanami'
   end
 end
