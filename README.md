@@ -1,28 +1,55 @@
 # Capistrano::Hanami
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/capistrano/hanami`. To experiment with that code, run `bin/console` for an interactive prompt.
+[Hanami](https://github.com/hanami/hanami) tasks for [Capistrano](https://github.com/capistrano/capistrano) v3:
 
-TODO: Delete this and the text above, and describe your gem
+  - `cap deploy:migrate`
+  - `cap deploy:compile_assets`
 
 ## Installation
 
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'capistrano-hanami'
+group :development do
+  gem 'capistrano', '~> 3.7'
+  gem 'capistrano-hanami'
+end
 ```
 
 And then execute:
 
     $ bundle
 
-Or install it yourself as:
+Then run the generator to create a basic set of configuration files:
 
-    $ gem install capistrano-hanami
+    $ bundle exec cap install
 
 ## Usage
 
-TODO: Write usage instructions here
+```ruby
+# Capfile
+require 'capistrano/hanami' # It also requires bundler
+```
+
+You can tweak some Hanami-specific options in `config/deploy.rb`:
+
+```ruby
+# If the environment differs from the stage name
+set :hanami_env, 'staging'
+
+# Defaults to :app role
+set :migration_role, :db
+
+# Defaults to the primary :app server
+set :migration_servers, -> { primary(fetch(:migration_role)) }
+
+# Defaults to false
+# Skip migration if files in db/migrations were not modified
+set :conditionally_migrate, true
+
+# Defaults to [:web]
+set :assets_roles, [:web, :app]
+```
 
 ## Development
 
