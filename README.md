@@ -1,4 +1,4 @@
-# Capistrano::Hanami
+# 🌸 Capistrano::Hanami
 
 [Hanami](https://github.com/hanami/hanami) tasks for [Capistrano](https://github.com/capistrano/capistrano) v3:
 
